@@ -1,0 +1,13 @@
+{
+    "ConnectionString": "Host=m4cprod-pgsql-db01.c8dgeymv054d.eu-west-1.rds.amazonaws.com;Database='DT-carico';Username=dosa;Password=m!styAnimal92;Timeout=30;Pooling=true;Application Name=rdstest;Search Path=public",
+    "DbType": "postgres",
+    "Threads": 10,
+    "DelayMs": 100,    
+    "MinDelayRange": 1,
+    "MaxDelayRange": 2,
+    "CountRows": false,
+    "Verbose": true,
+    "Queries": [
+        "Select * from  MA_CustSupp  where  MA_CustSupp.CustSuppType  = 3211264"
+    ]
+}
