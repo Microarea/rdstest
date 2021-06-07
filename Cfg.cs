@@ -25,10 +25,16 @@ namespace rdstest
             public int Processes { get; set; } = 1;
 
             [OptionParameter(ShortName: 'c', LongName: "config")]
-            public string ConfigPath  { get; set; } = "rdstest.json";
+            public string ConfigPath { get; set; } = "rdstest.json";
 
             [OptionParameter(ShortName: 'd', LongName: "startdelay")]
-            public int ProcessStartDelay {get; set;} = 1000;
+            public int ProcessStartDelay { get; set; } = 1000;
+        }
+
+        public static string GetBasePath()
+        {
+            using var processModule = System.Diagnostics.Process.GetCurrentProcess().MainModule;
+            return System.IO.Path.GetDirectoryName(processModule?.FileName);
         }
     }
 }

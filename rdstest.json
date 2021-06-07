@@ -6,7 +6,7 @@
     "MinDelayRange": 1,
     "MaxDelayRange": 2,
     "CountRows": false,
-    "Verbose": true,
+    "Verbose": false,
     "Queries": [
         "Select * from  MA_CustSupp  where  MA_CustSupp.CustSuppType  = 3211264"
     ]

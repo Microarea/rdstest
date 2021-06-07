@@ -17,9 +17,12 @@ namespace rdstest
     {
         private static void Main(string[] args)
         {
+            System.Console.WriteLine(Process.GetCurrentProcess().MainModule.FileName);
             var arguments = Cli.Parse<Args>(args);
+            System.Console.WriteLine(System.Text.Json.JsonSerializer.Serialize(arguments));
             var cfg = new ConfigurationBuilder()
-               .AddJsonFile(arguments.ConfigPath, true, true)
+               .SetBasePath(GetBasePath())
+               .AddJsonFile(arguments.ConfigPath, false, true)
                .AddEnvironmentVariables()
                .Build()
                .Get<Cfg>();
