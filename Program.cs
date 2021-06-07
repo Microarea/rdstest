@@ -44,7 +44,8 @@ namespace rdstest
 
             Console.WriteLine(System.Text.Json.JsonSerializer.Serialize(cfg));
 
-            var tasks = Range(0, cfg.Threads).Select(i =>
+            for (var i = 0; i < cfg.Threads; i++)
+            {
                 Task.Run(() =>
                 {
                     var rnd = new Random();
@@ -65,8 +66,8 @@ namespace rdstest
                         }
                         Thread.Sleep(cfg.DelayMs * rnd.Next(cfg.MinDelayRange, cfg.MaxDelayRange));
                     }
-                })
-            ).ToList();
+                });
+            }
 
             Console.WriteLine("running sync...");
 
