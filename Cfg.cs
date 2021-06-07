@@ -26,6 +26,9 @@ namespace rdstest
 
             [OptionParameter(ShortName: 'c', LongName: "config")]
             public string ConfigPath  { get; set; } = "rdstest.json";
+
+            [OptionParameter(ShortName: 'd', LongName: "startdelay")]
+            public int ProcessStartDelay {get; set;} = 1000;
         }
     }
 }

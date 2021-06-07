@@ -26,19 +26,27 @@ namespace rdstest
 
             if (arguments.Processes > 1)
             {
-                Parallel.For(0, arguments.Processes, (i, _) =>
+                for (var i = 0; i < arguments.Processes; i++)
                 {
-                    var psi = new ProcessStartInfo(Process.GetCurrentProcess().MainModule.FileName, "-c " + arguments.ConfigPath)
+                    var idx = i;
+                    Console.WriteLine($"--------- STARTING PROCESS {idx} ---------");
+                    Task.Run(() =>
                     {
-                        UseShellExecute = false,
-                        RedirectStandardOutput = true,
-                        RedirectStandardError = true,
-                    };
-                    using var p = Process.Start(psi);
-                    p.OutputDataReceived += (s, e) => Console.WriteLine($"{i} - {p.Id} - {e.Data}");
-                    p.BeginOutputReadLine();
-                    p.WaitForExit();
-                });
+                        var psi = new ProcessStartInfo(Process.GetCurrentProcess().MainModule.FileName, "-c " + arguments.ConfigPath)
+                        {
+                            UseShellExecute = false,
+                            RedirectStandardOutput = true,
+                            RedirectStandardError = true,
+                        };
+                        using var p = Process.Start(psi);
+                        p.OutputDataReceived += (s, e) => Console.WriteLine($"{idx} - {p.Id} - {e.Data}");
+                        p.BeginOutputReadLine();
+                        p.WaitForExit();
+                    });
+                    Thread.Sleep(arguments.ProcessStartDelay);
+                }
+                Console.WriteLine("--------- ALL PROCESSES STARTED ---------");
+                Console.Read();
                 return;
             }
 
@@ -69,7 +77,7 @@ namespace rdstest
                 });
             }
 
-            Console.WriteLine("running sync...");
+            Console.WriteLine("running...");
 
             Console.Read();
         }
