@@ -84,7 +84,7 @@ namespace rdstest
             var elapsedQuery = sw.ElapsedMilliseconds;
             int count = 0;
             if (cfg.CountRows) while (reader.Read()) count++;
-            if (cfg.Verbose) return count;
+            if (!cfg.Verbose) return count;
             Console.WriteLine($"[{DateTime.UtcNow:HHmmssfff},{id},{idx}] open: {elapsedOpen} ms, {elapsedQuery} ms, count {count}");
             return count;
         }
@@ -100,7 +100,7 @@ namespace rdstest
             var elapsedQuery = sw.ElapsedMilliseconds;
             int count = 0;
             if (cfg.CountRows) while (reader.Read()) count++;
-            if (cfg.Verbose) return count;
+            if (!cfg.Verbose) return count;
             Console.WriteLine($"[{DateTime.UtcNow:HHmmssfff},{id},{idx}] open: {elapsedOpen} ms, {elapsedQuery} ms, count {count}");
             return count;
         }
@@ -133,6 +133,5 @@ namespace rdstest
 
             await Task.WhenAll(tasks);
         }
-
     }
 }
